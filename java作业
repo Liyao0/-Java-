@@ -1,0 +1,63 @@
+class ArrayList1 implements List {
+    final int DEFAULT_SIZE = 16;
+    Double[] doubles = new Double[DEFAULT_SIZE];
+
+    @Override
+    //长度
+    public int size() {
+        int i = 0;
+        for (; i < doubles.length; i++) {
+            if (doubles[i] == null) {
+                break;
+            }
+        }
+        return i;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        if (doubles[0] == null) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
+
+    @Override
+    //迭代器这个不是很懂
+    public Iterator iterator() {
+        return null;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return new Object[0];
+    }
+
+    @Override
+    public boolean add(Object o) {
+        if (o instanceof Integer) {
+            Integer integer = (Integer) o;
+            int i = integer;
+            doubles[size()] = Double.valueOf(i);
+        } else if (o instanceof Double) {
+            doubles[size()] = (Double) o;
+        } else {
+            try {
+                throw new Exception("无法存储该类型");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        if (size() > doubles.length / 4 * 3) {
+            Double[] darray= new Double[doubles.length*4/3];
+            System.arraycopy(doubles, 0, darray, 0, doubles.length);
+            doubles = darray;
+        }
+        return true;
+    }
